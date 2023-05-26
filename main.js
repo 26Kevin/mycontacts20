@@ -30,20 +30,43 @@ function goBtnHandler() {
 }
 
 // MENU FUNCTIONS
+// function displayContacts() {
+//   contactsEl.innerHTML = "";
+//   for (let i = 0; i < contacts.length; i++) {
+//     contactsEl.appendChild(getTaskHTML(contacts[i], i));
+//   }
+// }
+
 function displayContacts() {
-  let index = 0;
-  let name = "";
-  let email = "";
-  let phone = 0;
-  let country = "";
+  let contact = [
+    "John Doe",
+    "Jannie Doe",
+    "Jennie Doe",
+    "Sam Smith",
+    "Sue Smith",
+    "Sally Smith",
+  ];
+  let email = [
+    "jdoe@gmail.com",
+    "janedoe@gmail.com",
+    "jenniedoe@gmail.com",
+    "samsmith@gmail.com",
+    "suesmith@gmail.com",
+    "sallysmith@gmail.com",
+  ];
+  let phone = [555 - 5555, 444 - 4444];
 
   contactsEl.innerHTML = "";
-  contactsEl.innerHTML = `<div>${i}: $ `
+  for (let i = 0; i < contacts.length; i++) {
+    outputEl.innerHTML += `<p>${i}: ${contact} ${email} ${phone} (${country})`;
   }
 }
 
 function addContact() {
-  console.log("Add Contact");
+  let name = prompt("Enter contact Name:");
+  let email = prompt("Enter Contact Email:");
+  let phone = prompt("Enter Contact Phone:");
+  let country = prompt("Enter Contact COuntry:");
 }
 
 function removeContact() {
