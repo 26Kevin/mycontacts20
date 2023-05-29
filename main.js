@@ -7,7 +7,6 @@ let outputEl = document.getElementById("output");
 
 //  Global Variables
 let contacts = initContacts();
-displayContacts();
 
 // Go Btn - Menu Listener
 goBtnEl.addEventListener("click", goBtnHandler);
@@ -38,39 +37,28 @@ function goBtnHandler() {
 // }
 
 function displayContacts() {
-  let contact = [
-    "John Doe",
-    "Jannie Doe",
-    "Jennie Doe",
-    "Sam Smith",
-    "Sue Smith",
-    "Sally Smith",
-  ];
-  let email = [
-    "jdoe@gmail.com",
-    "janedoe@gmail.com",
-    "jenniedoe@gmail.com",
-    "samsmith@gmail.com",
-    "suesmith@gmail.com",
-    "sallysmith@gmail.com",
-  ];
-  let phone = [555 - 5555, 444 - 4444];
-
-  contactsEl.innerHTML = "";
+  outputEl.innerHTML = "";
   for (let i = 0; i < contacts.length; i++) {
-    outputEl.innerHTML += `<p>${i}: ${contact} ${email} ${phone} (${country})`;
+    let cc = contacts[i];
+    outputEl.innerHTML += `<p>${i}: ${cc.name} ${cc.email} ${cc.phone} (${cc.country}) `;
   }
 }
 
 function addContact() {
-  let name = prompt("Enter contact Name:");
-  let email = prompt("Enter Contact Email:");
-  let phone = prompt("Enter Contact Phone:");
-  let country = prompt("Enter Contact COuntry:");
+  contacts.push({
+    name: prompt("Enter Contact Name:"),
+    email: prompt("Enter Contact Email:"),
+    phone: +prompt("Enter Contact Phone:"),
+    country: prompt("Enter Contact Country:"),
+
+    // name.push(prompt("Enter Contact Name:"));
+    // email.push(prompt("Enter Contact Email:"));
+  });
 }
 
 function removeContact() {
-  console.log("Remove Contact");
+  let remove = contacts.pop();
+  outputEl.innerHTML = `<p>Last Nickname Removed: ${last}`;
 }
 
 function displayByName() {
@@ -82,7 +70,44 @@ function displayByCountry() {
 }
 
 // Helpers
+// function initContacts() {
+//   let jsonContacts = localStorage.getItem("contacts");
+//   return JSON.parse(jsonContacts) ?? [];
+// }
+
 function initContacts() {
-  let jsonContacts = localStorage.getItem("contacts");
-  return JSON.parse(jsonContacts) ?? [];
+  let temp = [];
+
+  temp.push({
+    name: `John Doe`,
+    email: `jdoe@gmail.com`,
+    phone: `555-5555`,
+    country: `Canada`,
+  });
+  temp.push({
+    name: `Jane Doe`,
+    email: `janedoe@gmail.com`,
+    phone: `444-4444`,
+    country: `Canada`,
+  });
+  temp.push({
+    name: `Jennie Doe`,
+    email: `jenniedoe@gmail.com`,
+    phone: `333-3333`,
+    country: `USA`,
+  });
+  temp.push({
+    name: `Sam Smith`,
+    email: `samesmithgmail.com`,
+    phone: `222-2222`,
+    country: "Australia",
+  });
+  temp.push({
+    name: `Sue Smith`,
+    email: `suesmith@gmail.com`,
+    phone: `777-7777`,
+    country: `Australia`,
+  });
+
+  return temp;
 }
