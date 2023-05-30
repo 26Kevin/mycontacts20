@@ -45,24 +45,38 @@ function displayContacts() {
 }
 
 function addContact() {
-  contacts.push({
-    name: prompt("Enter Contact Name:"),
-    email: prompt("Enter Contact Email:"),
-    phone: +prompt("Enter Contact Phone:"),
-    country: prompt("Enter Contact Country:"),
+  let nameIn = prompt("Enter Contact Name:");
 
-    // name.push(prompt("Enter Contact Name:"));
-    // email.push(prompt("Enter Contact Email:"));
+  contacts.push({
+    name: nameIn,
+    email: prompt("Enter Contact Email:"),
+    phone: prompt("Enter Contact Phone:"),
+    country: prompt("Enter Contact Country:"),
   });
+
+  // outputEl.innerHTML = `<p>New Contact Added (${cc.name})`;
+  outputEl.innerHTML = `<p>New Contact Added (${nameIn})`;
 }
 
 function removeContact() {
-  let remove = contacts.pop();
-  outputEl.innerHTML = `<p>Last Nickname Removed: ${last}`;
+  let remove = prompt("Enter Contact Name:");
+
+  contacts.pop({
+    email: prompt("Enter Contact Email:"),
+    phone: prompt("Enter Contact Phone:"),
+    country: prompt("Enter Contact Country:"),
+  });
+  outputEl.innerHTML = `<p>Nickname Removed: ${remove}`;
 }
 
 function displayByName() {
-  console.log("Display by Name");
+  let displayName = prompt("Enter contact name:");
+
+  // for (let i = 0; i < contacts.length; i++) {
+  //   if ( === displayName) {
+  //     outputEl.innerHTML += `<p>${i}: ${displayName} ${cc.email} ${cc.phone} (${cc.country}) `;
+  //   }
+  // }
 }
 
 function displayByCountry() {
