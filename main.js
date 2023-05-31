@@ -59,28 +59,33 @@ function addContact() {
 }
 
 function removeContact() {
-  let remove = prompt("Enter Contact Name:");
-
-  contacts.pop({
-    email: prompt("Enter Contact Email:"),
-    phone: prompt("Enter Contact Phone:"),
-    country: prompt("Enter Contact Country:"),
-  });
-  outputEl.innerHTML = `<p>Nickname Removed: ${remove}`;
+  let index = +prompt("Enter a index:");
+  if (index >= 0 && index < contacts.length) {
+    let contact = contacts.splice(index, 1)[0];
+    outputEl.innerHTML = `<p>Contact Removed (${contact.name})`;
+  }
 }
 
 function displayByName() {
   let displayName = prompt("Enter contact name:");
 
-  // for (let i = 0; i < contacts.length; i++) {
-  //   if ( === displayName) {
-  //     outputEl.innerHTML += `<p>${i}: ${displayName} ${cc.email} ${cc.phone} (${cc.country}) `;
-  //   }
-  // }
+  for (let i = 0; i < contacts.length; i++) {
+    if (contacts[i].name === displayName) {
+      let cc = contacts[i];
+      outputEl.innerHTML = `<p>${i}: ${displayName} ${cc.email} ${cc.phone} (${cc.country}) `;
+    }
+  }
 }
 
 function displayByCountry() {
-  console.log("Display by Country");
+  let displayCountry = prompt("Enter country:");
+
+  for (let i = 0; i < contacts.length; i++) {
+    if (contacts[i].country === displayCountry) {
+      let cc = contacts[i];
+      outputEl.innerHTML = `<p>${i}: ${cc.name} ${cc.email} ${cc.phone} (${displayCountry}) `;
+    }
+  }
 }
 
 // Helpers
