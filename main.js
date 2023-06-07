@@ -26,7 +26,7 @@ function goBtnHandler() {
   } else if (selection === "display-country") {
     displayByCountry();
   } else if (selection === "search-email") {
-    findByEmail();
+    searchEmail();
   }
 }
 
@@ -47,69 +47,47 @@ function displayContacts() {
 }
 
 function addContact() {
+  // Get input from user (Name & Email)
   let nameIn = prompt("Enter Contact Name:");
+  let emailIn = prompt("Enter Contact Email:");
 
-  contacts.push({
-    name: nameIn,
-    email: prompt("Enter Contact Email:"),
-    phone: prompt("Enter Contact Phone:"),
-    country: prompt("Enter Contact Country:"),
-  });
+  // Check if provided email is already used
+  let existingContactIndex = findByEmail(emailIn);
 
-  let existingContactIndex = findByEmail(email);
   if (existingContactIndex !== -1) {
     outputEl.innerHTML = "Contact already used";
+  } else {
+    outputEl.innerHTML = `<p>New Contact Added (${nameIn}`;
+    // Adding contact to contacts array
+    contacts.push({
+      name: nameIn,
+      email: emailIn,
+      phone: prompt("Enter Contact Phone:"),
+      country: prompt("Enter Contact Country:"),
+    });
   }
-
-  // outputEl.innerHTML = `<p>New Contact Added (${cc.name})`;
-  outputEl.innerHTML = `<p>New Contact Added (${nameIn})`;
 }
 
 function removeContact() {
-  let email = prompt("Enter the email of the ");
+  let emailIn = prompt("Enter the email of the contact to remove:");
+  let contactIndex = findByEmail(emailIn);
+
+  if (contactIndex !== -1) {
+    contacts.splice(contactIndex, 1);
+    outputEl.innerHTML = `<p>Contact removed successfully)`;
+  } else {
+    outputEl.innerHTML = `<p>Contact not found.`;
+  }
 }
-// function removeContact() {
-//   var email = prompt("Enter the email of the contact to remove:");
-//   var contactIndex = findByEmail(email);
-
-//   if (contactIndex !== -1) {
-//     contacts.splice(contactIndex, 1);
-//     console.log("Contact removed successfully.");
-//   } else {
-//     console.log("Contact not found.");
-//   }
-// }
-
-// function searchByEmail() {
-//   var email = prompt("Enter the email to search:");
-
-//   var contactIndex = findByEmail(email);
-//   if (contactIndex !== -1) {
-//     var contact = contacts[contactIndex];
-//     console.log("Contact found:");
-//     console.log("Name: " + contact.name);
-//     console.log("Email: " + contact.email);
-//     console.log("Phone: " + contact.phone);
-//     console.log("Country: " + contact.country);
-//   } else {
-//     console.log("Contact not found.");
-//   }
-// }
-
-//   let index = +prompt("Enter a index:");
-//   if (index >= 0 && index < contacts.length) {
-//     let contact = contacts.splice(index, 1)[0];
-//     outputEl.innerHTML = `<p>Contact Removed (${contact.name})`;
-//   }
-// }
 
 function displayByName() {
   let displayName = prompt("Enter contact name:");
+  outputEl.innerHTML = "";
 
   for (let i = 0; i < contacts.length; i++) {
     if (contacts[i].name === displayName) {
       let cc = contacts[i];
-      outputEl.innerHTML = `<p>${i}: ${displayName} ${cc.email} ${cc.phone} (${cc.country}) `;
+      outputEl.innerHTML += `<p>${i}: ${displayName} ${cc.email} ${cc.phone} (${cc.country}) `;
     }
   }
 }
@@ -126,9 +104,20 @@ function displayByCountry() {
   }
 }
 
-function findByEmail() {
+function searchEmail() {
+  let emailIn = prompt("Enter Contact Email:");
+  outputEl.innerHTML = "";
+  let existingContact = findByEmail(emailIn);
+
+  if (existingContact !== -1) {
+    let cc = contacts[i];
+    outputEl.innerHTML += `<p>${i}: ${cc.name} ${cc.email} ${cc.phone} (${cc.country}) `;
+  }
+}
+
+function findByEmail(emailIn) {
   for (i = 0; i < contacts.length; i++) {
-    if (contacts[i].email === email) {
+    if (contacts[i].email === emailIn) {
       return i;
     }
   }
